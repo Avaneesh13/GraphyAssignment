@@ -137,7 +137,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 BROKER_URL = os.environ.get('REDIS_URL')
 if BROKER_URL:
     redis_url = urlparse(BROKER_URL)
-    CELERY_RESULT_BACKEND = f'redis://{redis_url.hostname}:{redis_url.port}'
+    CELERY_RESULT_BACKEND = f'redis://:{redis_url.password}@{redis_url.hostname}:{redis_url.port}'
 else:
     BROKER_URL = 'redis://localhost:6379'
     CELERY_RESULT_BACKEND = 'redis://localhost:6379'
