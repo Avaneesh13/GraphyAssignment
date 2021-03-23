@@ -4,7 +4,7 @@ from GraphyAssignment.utility.models import TimeStampedModel
 from stories.constants import STORY_TYPE_CHOICES
 
 
-class Stories(TimeStampedModel):
+class Story(TimeStampedModel):
     grapher = models.CharField(max_length=100)
     name = models.CharField(max_length=100)
     description = models.TextField()
