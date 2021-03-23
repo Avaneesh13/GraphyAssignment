@@ -19,6 +19,6 @@
 
 ## **Start server locally:**
 1. Run the following 3 commands in seperate terminals:
-	* celery -A picha worker -l info
-	* celery -A picha beat -l info
+	* celery -A GraphyAssignment worker -l info
+	* celery -A GraphyAssignment beat -l info
 	* python manage.py runserver

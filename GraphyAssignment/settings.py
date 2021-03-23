@@ -132,8 +132,10 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 redis_host = os.environ.get('REDIS_HOST', 'localhost')
-BROKER_URL = f'redis://{redis_host}:6379'
-CELERY_RESULT_BACKEND = f'redis://{redis_host}:6379'
+redis_port = os.environ.get('REDIS_PORT', '6379')
+redis_password = os.environ.get('REDIS_PASSWORD', None)
+BROKER_URL = f'redis://:{redis_password}@{redis_host}:{redis_port}' if redis_password else f'redis://{redis_host}:{redis_port}'
+CELERY_RESULT_BACKEND = f'redis://{redis_host}:{redis_port}'
 CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
