@@ -131,8 +131,9 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'GraphyAssignment/static')]
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-BROKER_URL = 'redis://localhost:6379'
-CELERY_RESULT_BACKEND = 'redis://localhost:6379'
+redis_host = os.environ.get('REDIS_HOST', 'localhost')
+BROKER_URL = f'redis://{redis_host}:6379'
+CELERY_RESULT_BACKEND = f'redis://{redis_host}:6379'
 CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
