@@ -1,0 +1,1 @@
+web: gunicorn GraphyAssignment.wsgi --log-file -
