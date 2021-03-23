@@ -24,10 +24,10 @@ class Story(TimeStampedModel):
     created_on = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-    def save(self, *args, **kwargs):
-        super(Story, self).save(*args, **kwargs)
-        if self.content:
-            if int(self.content_type) == 1:
-                transaction.on_commit(lambda: optimize_image.delay(self.content.path))
-            elif int(self.content_type) == 2:
-                transaction.on_commit(lambda: optimize_video.delay(self.content.path))
+    # def save(self, *args, **kwargs):
+    #     super(Story, self).save(*args, **kwargs)
+    #     if self.content:
+    #         if int(self.content_type) == 1:
+    #             transaction.on_commit(lambda: optimize_image.delay(self.content.path))
+    #         elif int(self.content_type) == 2:
+    #             transaction.on_commit(lambda: optimize_video.delay(self.content.path))
