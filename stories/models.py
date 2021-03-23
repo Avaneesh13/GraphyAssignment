@@ -1,8 +1,9 @@
 from django.core.validators import FileExtensionValidator
-from django.db import models
+from django.db import models, transaction
 
 from GraphyAssignment.utility.models import TimeStampedModel
 from stories.constants import STORY_TYPE_CHOICES
+from stories.tasks import optimize_image, optimize_video
 
 
 class Story(TimeStampedModel):
@@ -23,6 +24,10 @@ class Story(TimeStampedModel):
     created_on = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-
-# class StoriesToProcess(models.Model):
-#     pass
+    def save(self, *args, **kwargs):
+        super(Story, self).save(*args, **kwargs)
+        if self.content:
+            if int(self.content_type) == 1:
+                transaction.on_commit(lambda: optimize_image.delay(self.content.path))
+            elif int(self.content_type) == 2:
+                transaction.on_commit(lambda: optimize_video.delay(self.content.path))
