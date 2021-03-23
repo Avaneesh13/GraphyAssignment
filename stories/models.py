@@ -1,3 +1,4 @@
+from django.core.validators import FileExtensionValidator
 from django.db import models
 
 from GraphyAssignment.utility.models import TimeStampedModel
@@ -9,7 +10,10 @@ class Story(TimeStampedModel):
     name = models.CharField(max_length=100)
     description = models.TextField()
     duration = models.IntegerField()
-    content = models.FileField(upload_to='content')
+    content = models.FileField(
+        upload_to='content',
+        validators=[FileExtensionValidator(allowed_extensions=['jpg', 'jpeg', 'mp4'])]
+    )
     content_type = models.CharField(
         max_length=1,
         choices=STORY_TYPE_CHOICES,
