@@ -11,9 +11,12 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 import os
 from pathlib import Path
+from urllib.parse import urlparse
+
 import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Quick-start development settings - unsuitable for production
@@ -131,11 +134,13 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'GraphyAssignment/static')]
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-redis_host = os.environ.get('REDIS_HOST', 'localhost')
-redis_port = os.environ.get('REDIS_PORT', '6379')
-redis_password = os.environ.get('REDIS_PASSWORD', None)
-BROKER_URL = f'redis://:{redis_password}@{redis_host}:{redis_port}' if redis_password else f'redis://{redis_host}:{redis_port}'
-CELERY_RESULT_BACKEND = f'redis://{redis_host}:{redis_port}'
+BROKER_URL = os.environ.get('REDIS_URL')
+if BROKER_URL:
+    redis_url = urlparse(BROKER_URL)
+    CELERY_RESULT_BACKEND = f'redis://{redis_url.hostname}:{redis_url.port}'
+else:
+    BROKER_URL = 'redis://localhost:6379'
+    CELERY_RESULT_BACKEND = 'redis://localhost:6379'
 CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
