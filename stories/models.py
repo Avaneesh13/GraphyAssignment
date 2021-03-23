@@ -19,5 +19,5 @@ class Stories(TimeStampedModel):
     updated_at = models.DateTimeField(auto_now=True)
 
 
-class StoriesToProcess(models.Model):
-    pass
+# class StoriesToProcess(models.Model):
+#     pass
