@@ -9,7 +9,8 @@ class Story(TimeStampedModel):
     name = models.CharField(max_length=100)
     description = models.TextField()
     duration = models.IntegerField()
-    type = models.CharField(
+    content = models.FileField(upload_to='content')
+    content_type = models.CharField(
         max_length=1,
         choices=STORY_TYPE_CHOICES,
     )
