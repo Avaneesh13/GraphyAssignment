@@ -24,8 +24,8 @@
 	* python manage.py runserver
 	
 ## APIs:
-1. https://ava-graphy-assignment.herokuapp.com/api/v1/story/?limit=<value>&offset=<value> : GET
-2. https://ava-graphy-assignment.herokuapp.com/api/v1/story/<id> : GET
+1. https://ava-graphy-assignment.herokuapp.com/api/v1/story/?limit=<value>&offset=<value> : GET.
+2. https://ava-graphy-assignment.herokuapp.com/api/v1/story/<id> : GET.
 3. https://ava-graphy-assignment.herokuapp.com/api/v1/story/ : POST - User GET(Retrieve) as a reference for post body. Pass file in content parameter.
 	
 ### Note: Background media optimizations aren't working in the deployed application, as open() isn't able to access the files.
